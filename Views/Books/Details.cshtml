@@ -1,0 +1,87 @@
+﻿@*@model BookManagment.Models.Book*@
+@model BookManagment.Models.ViewModels.AuthorIndexData
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+
+    <h4>Book</h4>
+    <hr />
+@foreach (var book in Model.Books)
+{
+
+
+    <div>
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                Book title:
+            </dt>
+            <dd class="col-sm-10">
+                @book.Title
+            </dd>
+            <dt class="col-sm-2">
+                Publish date:
+            </dt>
+            <dd class="col-sm-10">
+                @book.PublishingDate.ToShortDateString()
+            </dd>
+            <dt class="col-sm-2">
+                Publisher:
+            </dt>
+            <dd class="col-sm-10">
+                @book.Publisher.PublisherName
+            </dd>
+            <dt class="col-sm-2">
+                Category:
+            </dt>
+            <dd class="col-sm-10">
+                @book.Category
+            </dd>
+            <dt class="col-sm-2">
+                Authors
+            </dt>
+            @foreach (var author in Model.Authors)
+            {
+                <dd class="col-sm-10">
+                    @author.FullName
+                </dd>
+            }
+
+
+
+
+            @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PublishingDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PublishingDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Publisher.PublisherName)
+        </dd>*@
+        </dl>
+    </div>
+<div>
+    <a asp-action="Edit" asp-route-id="@book.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+}

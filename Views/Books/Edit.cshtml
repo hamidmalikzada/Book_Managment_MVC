@@ -1,0 +1,73 @@
+﻿@model BookManagment.Models.Book
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishingDate" class="control-label"></label>
+                <input asp-for="PublishingDate" class="form-control" />
+                <span asp-validation-for="PublishingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" asp-items="@Html.GetEnumSelectList<Category>()" class="form-control"></select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublisherId" class="control-label"></label>
+                <select asp-for="PublisherId" class="form-control" asp-items="ViewBag.PublisherId"></select>
+                <span asp-validation-for="PublisherId" class="text-danger"></span>
+            </div>
+
+            <table>
+                <tr>
+                    @{
+                        List<BookManagment.Models.ViewModels.BookCheckBoxViewModel> authors = ViewBag.Authors;
+                    }
+                    <th>Select autors of the book</th>
+                </tr>
+                <tr>
+                    @foreach (var author in ViewBag.Authors)
+                    {
+                        <td>
+
+                            <input type="checkbox"
+                                   name="selectedAuthors"
+                                   value="@author.Id"
+                                   @(Html.Raw(author.Checked ? "checked=\"Checked\"" : "")) />
+                            @author.FullName
+
+                        </td>
+                    }
+                </tr>
+            </table>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
